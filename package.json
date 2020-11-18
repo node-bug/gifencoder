@@ -23,7 +23,7 @@
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomasashwindsilva/boilerplatejs.git"
+    "url": "git+https://github.com/boilerplatejs/boilerplatejs.git"
   },
   "scripts": {
     "test": "npm run test"
