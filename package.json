@@ -1,29 +1,30 @@
 {
-  "name": "@nodebug/boilerplatejs",
-  "version": "0.0.1",
+  "name": "@nodebug/gifencoder",
+  "version": "1.0.0",
   "author": {
     "name": "Node Bug",
     "email": "nodebug@outlook.com"
   },
   "bugs": {
-    "url": "https://github.com/node-bug/boilerplatejs/issues"
+    "url": "https://github.com/node-bug/gifencoder/issues"
   },
   "dependencies": {
-    "@nodebug/logger": "1.0.0",
-    "@nodebug/config": "1.0.0"
+    "canvas": "^2.6.1",
+    "gifencoder": "^2.0.1"
   },
-  "description": "boiler plate for nodejs projects",
-  "homepage": "https://github.com/node-bug/boilerplatejs#readme",
+  "description": "add images to a gif and return buffer, save to file",
+  "homepage": "https://github.com/node-bug/gifencoder#readme",
   "keywords": [
-    "node",
-    "npm",
-    "boiler",
-    "plate"
+    "gif",
+    "add",
+    "remove",
+    "buffer",
+    "file"
   ],
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boilerplatejs/boilerplatejs.git"
+    "url": "git+https://github.com/boilerplatejs/gifencoder.git"
   },
   "scripts": {
     "test": "npm run test"

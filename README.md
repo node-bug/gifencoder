@@ -1,1 +1,1 @@
-boiler plate for my node js projects
+add images to a gif and return buffer, save to file
