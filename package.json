@@ -1,6 +1,6 @@
 {
   "name": "@nodebug/gifencoder",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Node Bug",
     "email": "nodebug@outlook.com"
@@ -9,8 +9,8 @@
     "url": "https://github.com/node-bug/gifencoder/issues"
   },
   "dependencies": {
-    "canvas": "^2.6.1",
-    "gifencoder": "^2.0.1"
+    "canvas": "2.11.2",
+    "gifencoder": "2.0.1"
   },
   "description": "add images to a gif and return buffer, save to file",
   "homepage": "https://github.com/node-bug/gifencoder#readme",
@@ -24,20 +24,20 @@
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boilerplatejs/gifencoder.git"
+    "url": "git+https://github.com/node-bug/gifencoder.git"
   },
   "scripts": {
     "test": "npm run test"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.3.8",
-    "lint-staged": "10.1.5",
-    "prettier": "^2.0.5"
+    "eslint": "8.45.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "8.9.0",
+    "eslint-plugin-import": "2.28.0",
+    "eslint-plugin-prettier": "5.0.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.3",
+    "prettier": "3.0.0"
   },
   "husky": {
     "hooks": {
