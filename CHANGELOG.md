@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added comprehensive test suite with mocha
+- Added comprehensive test suite with jest
 - Added temporary image generation and GIF creation tests
 - Added more detailed documentation
 

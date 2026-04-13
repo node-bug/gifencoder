@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import fs from 'fs'
 import path from 'path'
 import Gif from '../index.js'
@@ -12,128 +11,119 @@ const __dirname = dirname(__filename)
 
 describe('Gif Encoder', () => {
   describe('Constructor', () => {
-    it('should create a new Gif instance with specified dimensions', () => {
+    test('should create a new Gif instance with specified dimensions', () => {
       const gif = new Gif(320, 240)
-      expect(gif).to.be.an('object')
-      expect(gif.width).to.equal(320)
-      expect(gif.height).to.equal(240)
+      expect(gif).toBeInstanceOf(Object)
+      expect(gif.width).toBe(320)
+      expect(gif.height).toBe(240)
     })
 
-    it('should have proper getters for width and height', () => {
+    test('should have proper getters for width and height', () => {
       const gif = new Gif(640, 480)
-      expect(gif.width).to.equal(640)
-      expect(gif.height).to.equal(480)
+      expect(gif.width).toBe(640)
+      expect(gif.height).toBe(480)
     })
   })
 
   describe('addImage method', () => {
-    it('should add an image from a file path', async () => {
+    test('should add an image from a file path', async () => {
       const gif = new Gif(320, 240)
       // This test will pass if the method doesn't throw an error
       // Actual image processing would require test images
-      expect(gif).to.be.an('object')
+      expect(gif).toBeInstanceOf(Object)
     })
 
-    it('should handle invalid file paths gracefully', async () => {
+    test('should handle invalid file paths gracefully', async () => {
       const gif = new Gif(320, 240)
-      try {
+      expect(async () => {
         await gif.addImage('nonexistent.png')
-        expect.fail('Should have thrown an error')
-      } catch (error) {
-        expect(error).to.be.an('error')
-      }
+      }).rejects.toThrow()
     })
   })
 
   describe('addBuffer method', () => {
-    it('should add an image from a base64 buffer', async () => {
+    test('should add an image from a base64 buffer', async () => {
       const gif = new Gif(320, 240)
       // This test will pass if the method doesn't throw an error
       // Actual buffer processing would require valid base64 data
-      expect(gif).to.be.an('object')
+      expect(gif).toBeInstanceOf(Object)
     })
 
-    it('should handle invalid base64 data gracefully', async () => {
+    test('should handle invalid base64 data gracefully', async () => {
       const gif = new Gif(320, 240)
-      try {
+      expect(async () => {
         await gif.addBuffer('invalid-base64-data')
-        expect.fail('Should have thrown an error')
-      } catch (error) {
-        expect(error).to.be.an('error')
-      }
+      }).rejects.toThrow()
     })
   })
 
   describe('addImages method', () => {
-    it('should add multiple images from file paths', async () => {
+    test('should add multiple images from file paths', async () => {
       const gif = new Gif(320, 240)
       // This test will pass if the method doesn't throw an error
-      expect(gif).to.be.an('object')
+      expect(gif).toBeInstanceOf(Object)
     })
   })
 
   describe('save method', () => {
-    it('should save to file when path is provided', async () => {
+    test('should save to file when path is provided', async () => {
       const gif = new Gif(320, 240)
       // This test will pass if the method doesn't throw an error
-      expect(gif).to.be.an('object')
+      expect(gif).toBeInstanceOf(Object)
     })
 
-    it('should return buffer when no path is provided', async () => {
+    test('should return buffer when no path is provided', async () => {
       const gif = new Gif(320, 240)
       // This test will pass if the method doesn't throw an error
-      expect(gif).to.be.an('object')
+      expect(gif).toBeInstanceOf(Object)
     })
 
-    it('should handle empty GIF gracefully', async () => {
+    test('should handle empty GIF gracefully', async () => {
       const gif = new Gif(320, 240)
-      try {
+      expect(async () => {
         await gif.save()
-        expect.fail('Should have thrown an error for empty GIF')
-      } catch (error) {
-        expect(error).to.be.an('error')
-      }
+      }).rejects.toThrow()
     })
   })
 
   describe('Integration Tests', () => {
-    it('should create a basic GIF structure', async () => {
+    test('should create a basic GIF structure', async () => {
       const gif = new Gif(100, 100)
-      expect(gif).to.be.an('object')
-      expect(gif.width).to.equal(100)
-      expect(gif.height).to.equal(100)
+      expect(gif).toBeInstanceOf(Object)
+      expect(gif.width).toBe(100)
+      expect(gif.height).toBe(100)
     })
   })
 
   describe('Advanced Functionality Tests', () => {
-    it('should properly handle multiple frames', async () => {
+    test('should properly handle multiple frames', async () => {
       const gif = new Gif(100, 100)
-      expect(gif._frames).to.be.an('array')
-      expect(gif._frames.length).to.equal(0)
+      expect(gif._frames).toBeInstanceOf(Array)
+      expect(gif._frames.length).toBe(0)
       
       // Test that frames array is properly maintained
       // We can't test actual image processing without test images, but we can test the structure
-      expect(gif._frames).to.be.an('array')
-      expect(gif._frames.length).to.equal(0)
+      expect(gif._frames).toBeInstanceOf(Array)
+      expect(gif._frames.length).toBe(0)
     })
 
-    it('should properly resize images to specified dimensions', async () => {
+    test('should properly resize images to specified dimensions', async () => {
       const gif = new Gif(200, 150)
-      expect(gif.width).to.equal(200)
-      expect(gif.height).to.equal(150)
+      expect(gif.width).toBe(200)
+      expect(gif.height).toBe(150)
       
       // Test that the constructor properly sets dimensions
-      expect(gif._width).to.equal(200)
-      expect(gif._height).to.equal(150)
+      expect(gif._width).toBe(200)
+      expect(gif._height).toBe(150)
     })
 
-    it('should properly handle frame addition with different methods', async () => {
+    test('should properly handle frame addition with different methods', async () => {
       const gif = new Gif(100, 100)
       
       // Test that methods exist and don't throw errors
-      expect(gif.addImage).to.be.a('function')
-      expect(gif.addBuffer).to.be.a('function')
-      expect(gif.addImages).to.be.a('function')
+      expect(typeof gif.addImage).toBe('function')
+      expect(typeof gif.addBuffer).toBe('function')
+      expect(typeof gif.addImages).toBe('function')
       
       // Test that the methods are callable
       try {
@@ -141,31 +131,25 @@ describe('Gif Encoder', () => {
         await gif.addImage('nonexistent.png')
       } catch (error) {
         // Expected to fail due to missing file, but method should be callable
-        expect(error).to.be.an('error')
+        expect(error).toBeInstanceOf(Error)
       }
       
       try {
         await gif.addBuffer('invalid-base64-data')
       } catch (error) {
         // Expected to fail due to invalid base64, but method should be callable
-        expect(error).to.be.an('error')
+        expect(error).toBeInstanceOf(Error)
       }
     })
 
-    it('should properly handle save with different parameters', async () => {
+    test('should properly handle save with different parameters', async () => {
       const gif = new Gif(100, 100)
       
       // Test that save method exists and is callable
-      expect(gif.save).to.be.a('function')
+      expect(typeof gif.save).toBe('function')
       
       // Test that save method properly handles empty GIF
-      try {
-        await gif.save()
-        expect.fail('Should have thrown an error for empty GIF')
-      } catch (error) {
-        expect(error).to.be.an('error')
-        expect(error.message).to.contain('No frames to save')
-      }
+      await expect(gif.save()).rejects.toThrow('No frames to save')
     })
   })
 
@@ -174,7 +158,7 @@ describe('Gif Encoder', () => {
     const testImage2Path = path.join(__dirname, 'temp_test_image2.png')
 
     // Create temporary test images using sharp
-    before(async () => {
+    beforeAll(async () => {
       // Create first test image
       await sharp({
         create: {
@@ -201,7 +185,7 @@ describe('Gif Encoder', () => {
     })
 
     // Clean up temporary files after tests
-    after(() => {
+    afterAll(() => {
       try {
         fs.unlinkSync(testImage1Path)
         fs.unlinkSync(testImage2Path)
@@ -238,12 +222,12 @@ describe('Gif Encoder', () => {
       await gif.addImage(testImage2Path)
       
       // Verify frames were added
-      expect(gif._frames).to.have.lengthOf(2)
+      expect(gif._frames).toHaveLength(2)
       
       // Test that the GIF structure is maintained
-      expect(gif).to.be.an('object')
-      expect(gif.width).to.equal(100)
-      expect(gif.height).to.equal(100)
+      expect(gif).toBeInstanceOf(Object)
+      expect(gif.width).toBe(100)
+      expect(gif.height).toBe(100)
     })
   })
 })
