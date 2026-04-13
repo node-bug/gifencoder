@@ -15,10 +15,7 @@ npm install @nodebug/gifencoder
 ## Usage
 
 ```javascript
-// For CommonJS
-const Gif = require('@nodebug/gifencoder')
-
-// For ES Modules
+// ES Module import (this package uses ES Modules)
 import Gif from '@nodebug/gifencoder'
 
 // Create a new GIF with 320x240 dimensions
@@ -55,8 +52,6 @@ Creates a new GIF encoder with specified dimensions.
 
 - `width`: Getter for the GIF width
 - `height`: Getter for the GIF height
-- `encoder`: Getter for the underlying GIFEncoder instance
-- `canvas`: Getter for a canvas with the specified dimensions
 
 #### Methods
 
@@ -120,17 +115,34 @@ The GIF encoder is configured with:
 
 This project uses:
 
-- `gifencoder`: For GIF encoding functionality
-- `canvas`: For image processing capabilities
+- `gifenc`: For GIF encoding functionality
+- `sharp`: For image processing and resizing
+
+## Requirements
+
+- Node.js >= 24
 
 ## Development
 
-This project uses ESLint for code quality and Prettier for code formatting. The configuration includes:
+This project uses:
 
-- Airbnb base ESLint rules
-- Prettier integration
-- Line length limit of 120 characters
-- Unix line endings
+- **Jest**: For unit testing
+- **ESLint**: For code quality
+- **Prettier**: For code formatting
+- **Husky**: For Git hooks
+- **Lint-staged**: For pre-commit linting
+
+To run tests:
+
+```bash
+npm test
+```
+
+To lint:
+
+```bash
+npm run lint
+```
 
 ## License
 
