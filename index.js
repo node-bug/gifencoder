@@ -1,9 +1,8 @@
-const GIFEncoder = require('gifencoder')
-const { createCanvas, Image } = require('canvas')
-const fs = require('fs')
+import { createWriteStream } from 'fs'
+import gifenc from 'gifenc'
+import sharp from 'sharp'
 
 class Gif {
-  /* eslint-disable no-underscore-dangle */
   get width() {
     return this._width
   }
@@ -12,41 +11,34 @@ class Gif {
     return this._height
   }
 
-  get encoder() {
-    return this._encoder
-  }
-
-  get canvas() {
-    return createCanvas(this.width, this.height)
-  }
-
   constructor(width, height) {
     this._width = width
     this._height = height
-    this._encoder = new GIFEncoder(width, height)
-
-    this._encoder.start()
-    this._encoder.setRepeat(0)
-    this._encoder.setDelay(1000)
-    this._encoder.setQuality(10)
+    this._frames = []
   }
-  /* eslint-enable no-underscore-dangle */
 
   async addImage(path) {
-    const data = fs.readFileSync(path)
-    const image = new Image()
-    image.src = data
-    const context = this.canvas.getContext('2d')
-    context.drawImage(image, 0, 0)
-    return this.encoder.addFrame(context)
+    // Read and process the image with sharp
+    const imageBuffer = await sharp(path)
+      .resize(this.width, this.height)
+      .png()
+      .toBuffer()
+
+    // Store the processed frame
+    this._frames.push(imageBuffer)
+    return true
   }
 
   async addBuffer(data) {
-    const image = new Image()
-    image.src = `data:image/png;base64,${data}`
-    const context = this.canvas.getContext('2d')
-    context.drawImage(image, 0, 0)
-    return this.encoder.addFrame(context)
+    // Process base64 buffer with sharp
+    const imageBuffer = await sharp(Buffer.from(data, 'base64'))
+      .resize(this.width, this.height)
+      .png()
+      .toBuffer()
+
+    // Store the processed frame
+    this._frames.push(imageBuffer)
+    return true
   }
 
   async addImages(paths) {
@@ -57,13 +49,57 @@ class Gif {
   }
 
   async save(path) {
-    await this.encoder.finish()
-    const buffer = await this.encoder.out.getData()
-    if (![undefined, null, ''].includes(path)) {
-      fs.writeFileSync(path, buffer, 'base64')
+    if (this._frames.length === 0) {
+      throw new Error('No frames to save')
     }
-    return buffer
+
+    // Create GIF encoder
+    const gif = new gifenc.GIFEncoder(this.width, this.height)
+    
+    // Set up the GIF properties
+    gif.setRepeat(0); // Infinite loop
+    gif.setDelay(1000); // 1 second delay between frames
+    gif.setQuality(10); // Lower is better quality
+
+    // Write to file or return buffer
+    if (path) {
+      const writeStream = createWriteStream(path)
+      
+      // Start encoding
+      gif.createReadStream().pipe(writeStream)
+
+      // Add frames to GIF
+      for (const frame of this._frames) {
+        gif.addFrame(frame)
+      }
+      
+      gif.finish()
+
+      // Return a promise that resolves when the file is written
+      return new Promise((resolve, reject) => {
+        writeStream.on('finish', () => resolve())
+        writeStream.on('error', reject)
+      })
+    } else {
+      // Return buffer
+      const chunks = []
+      
+      // Add frames to GIF
+      for (const frame of this._frames) {
+        gif.addFrame(frame)
+      }
+      
+      gif.finish()
+
+      // Create a readable stream and collect data
+      const stream = gif.createReadStream()
+      return new Promise((resolve, reject) => {
+        stream.on('data', chunk => chunks.push(chunk))
+        stream.on('end', () => resolve(Buffer.concat(chunks)))
+        stream.on('error', reject)
+      })
+    }
   }
 }
 
-module.exports = Gif
+export default Gif
